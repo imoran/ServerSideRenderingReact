@@ -1,7 +1,5 @@
 import express from 'express';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import Home from './client/components/Home';
+import renderer from './helpers/renderer';
 
 const app = express();
 
@@ -10,20 +8,7 @@ app.use(express.static('public'));
 
 //listen to root route of application
 app.get('/', (req, res) => {
-  const content = renderToString(<Home />);
-  //send this content to user that requests the GET
-
-  const html = `
-    <html>
-      <head></head>
-      <body>
-        <div id="root">${content}</div>
-        <script src="bundle.js"></script>
-      </body>
-    </html>
-
-  `;
-  res.send(html);
+  res.send(renderer());
 });
 
 app.listen(3000, () => {
