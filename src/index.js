@@ -7,8 +7,8 @@ const app = express();
 app.use(express.static('public'));
 
 //listen to root route of application
-app.get('/', (req, res) => {
-  res.send(renderer());
+app.get('*', (req, res) => {
+  res.send(renderer(req));
 });
 
 app.listen(3000, () => {
